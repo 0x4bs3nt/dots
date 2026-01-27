@@ -7,7 +7,6 @@
   ];
 
   home.packages = with pkgs; [
-    # UI Apps
     brave
     obsidian
     discord
@@ -17,5 +16,7 @@
     bat
     tree
     fastfetch
+    python3
+    python3Packages.pip
   ];
 }

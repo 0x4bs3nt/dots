@@ -1,18 +1,18 @@
 { pkgs, ... }: {
   programs.fish = {
     enable = true;
+
+    interactiveShellInit = ''
+      set -g fish_greeting ""
+    '';
+
     shellAbbrs = {
-      # Existing aliases
       ll = "eza -lag";
       lg = "lazygit";
-      
-      # 'nr' for NixOS Rebuild
+     
+      # Rebuilding aliases 
       nr = "sudo nixos-rebuild switch --flake ~/nix#nixos";
-      
-      # 'hms' for Home Manager Switch
       hms = "home-manager switch --flake ~/nix#jan";
-      
-      # One to do both
       rebuild = "sudo nixos-rebuild switch --flake ~/nix#nixos && home-manager switch --flake ~/nix#jan";
     };
   };
