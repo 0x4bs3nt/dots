@@ -4,6 +4,7 @@
     ./btop.nix
     ./ghostty.nix
     ./nvim.nix
+    ./claude.nix
   ];
 
   home.packages = with pkgs; [
