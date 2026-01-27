@@ -2,17 +2,20 @@
   imports = [
     ./git.nix
     ./btop.nix
+    ./ghostty.nix
+    ./nvim.nix
   ];
 
-  # This is where your GUI apps go now
   home.packages = with pkgs; [
+    # UI Apps
     brave
     obsidian
-    ghostty
     discord
     element-desktop
-    fastfetch
+    eza
+    lazygit
     bat
     tree
+    fastfetch
   ];
 }

@@ -1,0 +1,24 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g.have_nerd_font = true
+vim.opt.number = true
+vim.opt.mouse = "a"
+vim.opt.showmode = false
+
+vim.opt.breakindent = true
+vim.opt.undofile = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.signcolumn = "yes"
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.inccommand = "split"
+vim.opt.cursorline = true
+vim.opt.scrolloff = 15
+vim.opt.guicursor = ""
+vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkon0"
+vim.api.nvim_set_option_value("clipboard", "unnamedplus", { scope = "global" })
