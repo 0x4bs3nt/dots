@@ -1,10 +1,14 @@
-{ config, pkgs, ...}: {
+{ config, pkgs, nixvim, ...}: {
   imports = [
+    nixvim.homeModules.nixvim
     ./fish.nix
     ./modules/bundle.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicate = _: true;
+  };
 
   home = {
     username = "jan";

@@ -3,8 +3,9 @@
     ./git.nix
     ./btop.nix
     ./ghostty.nix
-    ./nvim.nix
+    ./nvim
     ./claude.nix
+    ./fastfetch.nix
   ];
 
   home.packages = with pkgs; [
@@ -16,8 +17,9 @@
     lazygit
     bat
     tree
-    fastfetch
     python3
     python3Packages.pip
+    uv
+    bun
   ];
 }
