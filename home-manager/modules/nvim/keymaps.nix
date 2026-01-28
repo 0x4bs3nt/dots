@@ -107,6 +107,14 @@
         '';
         options.desc = "[F]ormat buffer";
       }
+
+      # Markdown Preview
+      {
+        mode = "n";
+        key = "<leader>mp";
+        action = "<cmd>MarkdownPreviewToggle<CR>";
+        options.desc = "[M]arkdown [P]review toggle";
+      }
     ];
 
     # ── Complex Lua Keymaps & Autocommands ───────────────────

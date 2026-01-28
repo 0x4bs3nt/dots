@@ -295,6 +295,14 @@
           surround = { };
         };
       };
+
+      markdown-preview = {
+        enable = true;
+        settings = {
+          auto_close = 0;
+          refresh_slow = 0;
+        };
+      };
     };
 
     # ── Extra Plugins (no first-class Nixvim module) ─────────
