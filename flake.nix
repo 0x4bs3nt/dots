@@ -15,10 +15,17 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, nixvim, ... }:
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nixvim,
+      ...
+    }:
     let
       system = "x86_64-linux";
-    in {
+    in
+    {
       # System config in /nixos
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -27,7 +34,10 @@
 
       # User config in /home-manager
       homeConfigurations.jan = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
         extraSpecialArgs = { inherit nixvim; };
         modules = [ ./home-manager/home.nix ];
       };

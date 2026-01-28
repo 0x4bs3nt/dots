@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.ghostty = {
     enable = true;
-    
+
     settings = {
       command = "${pkgs.fish}/bin/fish";
 
@@ -33,7 +34,7 @@
       gtk-titlebar = false;
       adw-toolbar-style = "flat";
       gtk-single-instance = true;
-      
+
       gtk-custom-css = "tab-style.css";
 
       # Keybinds

@@ -1,4 +1,10 @@
-{ config, pkgs, nixvim, ...}: {
+{
+  config,
+  pkgs,
+  nixvim,
+  ...
+}:
+{
   imports = [
     nixvim.homeModules.nixvim
     ./fish.nix

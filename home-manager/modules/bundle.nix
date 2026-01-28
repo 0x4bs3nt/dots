@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./git.nix
     ./btop.nix
@@ -6,6 +7,7 @@
     ./nvim
     ./claude.nix
     ./fastfetch.nix
+    ./thunderbird.nix
   ];
 
   home.packages = with pkgs; [
@@ -21,5 +23,6 @@
     python3Packages.pip
     uv
     bun
+    nixfmt-rfc-style
   ];
 }

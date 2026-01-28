@@ -1,8 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   users.users.jan = {
     isNormalUser = true;
     description = "jan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.fish;
   };
 

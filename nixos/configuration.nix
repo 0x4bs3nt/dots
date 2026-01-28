@@ -1,11 +1,40 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ./modules/bundle.nix
   ];
 
-  # Enable Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Nix Settings & Maintenance
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      # Deduplicate storage automatically
+      auto-optimise-store = true;
+    };
+    # Automatic Garbage Collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+  };
+
+  # Automatic System Upgrades
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/home/jan/nix";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+    ];
+    dates = "04:00";
+    randomizedDelaySec = "45min";
+  };
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

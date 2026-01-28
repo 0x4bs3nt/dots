@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.nixvim = {
     # ── Colorscheme ────────────────────────────────────────────
     colorschemes.kanagawa.enable = true;
@@ -51,6 +52,7 @@
             shell = [ "shfmt" ];
             sh = [ "shfmt" ];
             zsh = [ "shfmt" ];
+            nix = [ "nixpkgs-fmt" ];
           };
         };
       };
@@ -66,54 +68,56 @@
       # ── Git ───────────────────────────────────────────────────
       gitsigns = {
         enable = true;
-        settings.on_attach = { __raw = ''
-          function(bufnr)
-            local gitsigns = require('gitsigns')
-            local function map(mode, l, r, opts)
-              opts = opts or {}
-              opts.buffer = bufnr
-              vim.keymap.set(mode, l, r, opts)
+        settings.on_attach = {
+          __raw = ''
+            function(bufnr)
+              local gitsigns = require('gitsigns')
+              local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+              end
+
+              map('n', ']c', function()
+                if vim.wo.diff then
+                  vim.cmd.normal({ ']c', bang = true })
+                else
+                  gitsigns.nav_hunk('next')
+                end
+              end, { desc = 'Jump to next git [c]hange' })
+
+              map('n', '[c', function()
+                if vim.wo.diff then
+                  vim.cmd.normal({ '[c', bang = true })
+                else
+                  gitsigns.nav_hunk('prev')
+                end
+              end, { desc = 'Jump to previous git [c]hange' })
+
+              map('v', '<leader>hs', function()
+                gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+              end, { desc = 'stage git hunk' })
+              map('v', '<leader>hr', function()
+                gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+              end, { desc = 'reset git hunk' })
+
+              map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
+              map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
+              map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
+              map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
+              map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
+              map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
+              map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
+              map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
+              map('n', '<leader>hD', function()
+                gitsigns.diffthis('@')
+              end, { desc = 'git [D]iff against last commit' })
+
+              map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
+              map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
             end
-
-            map('n', ']c', function()
-              if vim.wo.diff then
-                vim.cmd.normal({ ']c', bang = true })
-              else
-                gitsigns.nav_hunk('next')
-              end
-            end, { desc = 'Jump to next git [c]hange' })
-
-            map('n', '[c', function()
-              if vim.wo.diff then
-                vim.cmd.normal({ '[c', bang = true })
-              else
-                gitsigns.nav_hunk('prev')
-              end
-            end, { desc = 'Jump to previous git [c]hange' })
-
-            map('v', '<leader>hs', function()
-              gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-            end, { desc = 'stage git hunk' })
-            map('v', '<leader>hr', function()
-              gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-            end, { desc = 'reset git hunk' })
-
-            map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'git [s]tage hunk' })
-            map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [r]eset hunk' })
-            map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-            map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'git [u]ndo stage hunk' })
-            map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-            map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-            map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-            map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
-            map('n', '<leader>hD', function()
-              gitsigns.diffthis('@')
-            end, { desc = 'git [D]iff against last commit' })
-
-            map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-            map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
-          end
-        ''; };
+          '';
+        };
       };
 
       # ── Telescope ─────────────────────────────────────────────
@@ -124,7 +128,9 @@
           ui-select.enable = true;
         };
         settings.extensions = {
-          ui-select = { __raw = "{ require('telescope.themes').get_dropdown() }"; };
+          ui-select = {
+            __raw = "{ require('telescope.themes').get_dropdown() }";
+          };
         };
       };
 
@@ -133,8 +139,17 @@
         enable = true;
         settings = {
           ensure_installed = [
-            "bash" "c" "diff" "html" "lua" "luadoc"
-            "markdown" "markdown_inline" "query" "vim" "vimdoc"
+            "bash"
+            "c"
+            "diff"
+            "html"
+            "lua"
+            "luadoc"
+            "markdown"
+            "markdown_inline"
+            "query"
+            "vim"
+            "vimdoc"
           ];
           highlight = {
             enable = true;
@@ -160,28 +175,55 @@
         enable = true;
         settings = {
           options = {
-            theme = { __raw = "bubbles_theme"; };
+            theme = {
+              __raw = "bubbles_theme";
+            };
             component_separators = "";
-            section_separators = { left = ""; right = ""; };
+            section_separators = {
+              left = "";
+              right = "";
+            };
           };
           sections = {
-            lualine_a = [ { __unkeyed-1 = "mode"; separator = { left = ""; }; right_padding = 2; } ];
-            lualine_b = [ "filename" "branch" ];
+            lualine_a = [
+              {
+                __unkeyed-1 = "mode";
+                separator = {
+                  left = "";
+                };
+                right_padding = 2;
+              }
+            ];
+            lualine_b = [
+              "filename"
+              "branch"
+            ];
             lualine_c = [ "%=" ];
-            lualine_x = [];
-            lualine_y = [ "filetype" "progress" ];
-            lualine_z = [ { __unkeyed-1 = "location"; separator = { right = ""; }; left_padding = 2; } ];
+            lualine_x = [ ];
+            lualine_y = [
+              "filetype"
+              "progress"
+            ];
+            lualine_z = [
+              {
+                __unkeyed-1 = "location";
+                separator = {
+                  right = "";
+                };
+                left_padding = 2;
+              }
+            ];
           };
           inactive_sections = {
             lualine_a = [ "filename" ];
-            lualine_b = [];
-            lualine_c = [];
-            lualine_x = [];
-            lualine_y = [];
+            lualine_b = [ ];
+            lualine_c = [ ];
+            lualine_x = [ ];
+            lualine_y = [ ];
             lualine_z = [ "location" ];
           };
-          tabline = {};
-          extensions = [];
+          tabline = { };
+          extensions = [ ];
         };
       };
 
@@ -189,13 +231,38 @@
       which-key = {
         enable = true;
         settings.spec = [
-          { __unkeyed-1 = "<leader>c"; group = "[C]ode"; }
-          { __unkeyed-1 = "<leader>d"; group = "[D]ocument"; }
-          { __unkeyed-1 = "<leader>r"; group = "[R]ename"; }
-          { __unkeyed-1 = "<leader>s"; group = "[S]earch"; }
-          { __unkeyed-1 = "<leader>w"; group = "[W]orkspace"; }
-          { __unkeyed-1 = "<leader>t"; group = "[T]oggle"; }
-          { __unkeyed-1 = "<leader>h"; group = "Git [H]unk"; mode = [ "n" "v" ]; }
+          {
+            __unkeyed-1 = "<leader>c";
+            group = "[C]ode";
+          }
+          {
+            __unkeyed-1 = "<leader>d";
+            group = "[D]ocument";
+          }
+          {
+            __unkeyed-1 = "<leader>r";
+            group = "[R]ename";
+          }
+          {
+            __unkeyed-1 = "<leader>s";
+            group = "[S]earch";
+          }
+          {
+            __unkeyed-1 = "<leader>w";
+            group = "[W]orkspace";
+          }
+          {
+            __unkeyed-1 = "<leader>t";
+            group = "[T]oggle";
+          }
+          {
+            __unkeyed-1 = "<leader>h";
+            group = "Git [H]unk";
+            mode = [
+              "n"
+              "v"
+            ];
+          }
         ];
       };
 
@@ -212,15 +279,20 @@
       lazydev = {
         enable = true;
         settings.library = [
-          { path = "luvit-meta/library"; words = [ "vim%.uv" ]; }
+          {
+            path = "luvit-meta/library";
+            words = [ "vim%.uv" ];
+          }
         ];
       };
 
       mini = {
         enable = true;
         modules = {
-          ai = { n_lines = 500; };
-          surround = {};
+          ai = {
+            n_lines = 500;
+          };
+          surround = { };
         };
       };
     };

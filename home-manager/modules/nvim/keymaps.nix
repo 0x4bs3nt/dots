@@ -1,43 +1,100 @@
-{ ... }: {
+{ ... }:
+{
   programs.nixvim = {
     # ── Declarative Keymaps ──────────────────────────────────
     keymaps = [
       # Clear search highlight
-      { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; }
+      {
+        mode = "n";
+        key = "<Esc>";
+        action = "<cmd>nohlsearch<CR>";
+      }
 
       # Diagnostic quickfix
       {
-        mode = "n"; key = "<leader>q";
+        mode = "n";
+        key = "<leader>q";
         action.__raw = "vim.diagnostic.setloclist";
         options.desc = "Open diagnostic [Q]uickfix list";
       }
 
       # Exit terminal mode
       {
-        mode = "t"; key = "<Esc><Esc>";
+        mode = "t";
+        key = "<Esc><Esc>";
         action = "<C-\\><C-n>";
         options.desc = "Exit terminal mode";
       }
 
       # Window navigation
-      { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move focus to the left window"; }
-      { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; options.desc = "Move focus to the right window"; }
-      { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move focus to the lower window"; }
-      { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move focus to the upper window"; }
+      {
+        mode = "n";
+        key = "<C-h>";
+        action = "<C-w><C-h>";
+        options.desc = "Move focus to the left window";
+      }
+      {
+        mode = "n";
+        key = "<C-l>";
+        action = "<C-w><C-l>";
+        options.desc = "Move focus to the right window";
+      }
+      {
+        mode = "n";
+        key = "<C-j>";
+        action = "<C-w><C-j>";
+        options.desc = "Move focus to the lower window";
+      }
+      {
+        mode = "n";
+        key = "<C-k>";
+        action = "<C-w><C-k>";
+        options.desc = "Move focus to the upper window";
+      }
 
       # Claude Code
-      { mode = "n"; key = "<C-,>"; action = "<cmd>ClaudeCode<CR>"; options.desc = "Claude Code"; }
+      {
+        mode = "n";
+        key = "<C-,>";
+        action = "<cmd>ClaudeCode<CR>";
+        options.desc = "Claude Code";
+      }
 
       # Quickfix navigation
-      { mode = "n"; key = "<Space>n"; action = "<cmd>cnext<CR>"; options.desc = "Next Quickfix Item"; }
-      { mode = "n"; key = "<Space>p"; action = "<cmd>cprev<CR>"; options.desc = "Previous Quickfix Item"; }
-      { mode = "n"; key = "<Space>o"; action = "<cmd>copen<CR>"; options.desc = "Open Quickfix List"; }
+      {
+        mode = "n";
+        key = "<Space>n";
+        action = "<cmd>cnext<CR>";
+        options.desc = "Next Quickfix Item";
+      }
+      {
+        mode = "n";
+        key = "<Space>p";
+        action = "<cmd>cprev<CR>";
+        options.desc = "Previous Quickfix Item";
+      }
+      {
+        mode = "n";
+        key = "<Space>o";
+        action = "<cmd>copen<CR>";
+        options.desc = "Open Quickfix List";
+      }
 
       # NeoTree
-      { mode = "n"; key = "\\"; action = "<cmd>Neotree reveal<CR>"; options.desc = "NeoTree reveal"; }
+      {
+        mode = "n";
+        key = "\\";
+        action = "<cmd>Neotree reveal<CR>";
+        options.desc = "NeoTree reveal";
+      }
 
       # LazyGit
-      { mode = "n"; key = "<leader>lg"; action = "<cmd>LazyGit<CR>"; options.desc = "LazyGit"; }
+      {
+        mode = "n";
+        key = "<leader>lg";
+        action = "<cmd>LazyGit<CR>";
+        options.desc = "LazyGit";
+      }
 
       # Format
       {
