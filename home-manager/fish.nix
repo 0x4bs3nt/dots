@@ -15,6 +15,10 @@
       nr = "nixfmt ~/nix/**/*.nix; sudo nixos-rebuild switch --flake ~/nix#nixos";
       hms = "nixfmt ~/nix/**/*.nix; home-manager switch --flake ~/nix#jan";
       rebuild = "nixfmt ~/nix/**/*.nix; sudo nixos-rebuild switch --flake ~/nix#nixos && home-manager switch --flake ~/nix#jan";
+
+      # Nix utilities
+      clean = "nix-collect-garbage -d";
+      update = "nix flake update && nixfmt ~/nix/**/*.nix";
     };
   };
 }
