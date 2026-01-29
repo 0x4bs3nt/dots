@@ -3,8 +3,9 @@
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "solarized_dark";
+      color_theme = "ayu";
       vim_keys = true;
+      theme_background = false;
     };
   };
 }
