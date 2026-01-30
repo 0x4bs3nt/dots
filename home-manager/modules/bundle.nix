@@ -14,15 +14,12 @@
     brave
     obsidian
     discord
+    slack
     element-desktop
     eza
     lazygit
     bat
     tree
-    python3
-    python3Packages.pip
-    uv
-    bun
     nixfmt-rfc-style
   ];
 }

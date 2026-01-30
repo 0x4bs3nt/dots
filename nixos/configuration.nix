@@ -60,12 +60,19 @@
   # System-level packages
   environment.systemPackages = with pkgs; [
     vim
+    lsof
     wget
     git
     home-manager
   ];
 
   services.openssh.enable = true;
+
+  # direnv with nix-direnv for automatic dev environments
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
   system.stateVersion = "25.11";
 }
