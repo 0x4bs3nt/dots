@@ -44,9 +44,6 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
-
   time.timeZone = "Europe/Zagreb";
 
   security.rtkit.enable = true;
