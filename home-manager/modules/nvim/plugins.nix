@@ -1,9 +1,6 @@
 { pkgs, ... }:
 {
   programs.nixvim = {
-    # ── Colorscheme ────────────────────────────────────────────
-    colorschemes.kanagawa.enable = true;
-
     plugins = {
       # ── Completion ─────────────────────────────────────────────
       blink-cmp = {
@@ -310,7 +307,10 @@
       auto-save-nvim
       cord-nvim
       claude-code-nvim
+      oxocarbon-nvim
     ];
+
+    colorscheme = "oxocarbon";
 
     extraConfigLua = ''
       -- AutoSave
