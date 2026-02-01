@@ -24,20 +24,25 @@
     }:
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
       # System config in /nixos
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./nixos/configuration.nix ];
+        specialArgs = { inherit pkgs; };
+        modules = [
+          { nixpkgs.pkgs = pkgs; }
+          ./nixos/configuration.nix
+        ];
       };
 
       # User config in /home-manager
       homeConfigurations.jan = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
+        inherit pkgs;
         extraSpecialArgs = { inherit nixvim; };
         modules = [ ./home-manager/home.nix ];
       };
