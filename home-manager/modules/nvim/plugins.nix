@@ -307,15 +307,18 @@
       auto-save-nvim
       cord-nvim
       claude-code-nvim
-      oxocarbon-nvim
+      catppuccin-nvim
     ];
 
-    colorscheme = "oxocarbon";
+    colorscheme = "catppuccin";
 
     extraConfigLua = ''
       -- AutoSave
       require('auto-save').setup({ enabled = true })
       vim.keymap.set('n', '<leader>ts', ':ASToggle<CR>', { noremap = true, silent = true, desc = 'Toggle Auto Save' })
+
+      -- Catppuccin (frappe = lightest dark variant)
+      require('catppuccin').setup({ flavour = 'frappe' })
 
       -- Discord Rich Presence
       require('cord').setup({})

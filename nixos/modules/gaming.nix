@@ -27,5 +27,6 @@
     protonup-qt
     lutris
     gamemode
+    prismlauncher
   ];
 }
