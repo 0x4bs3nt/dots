@@ -13,6 +13,18 @@
       url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Add llm-agents.nix for opencode
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -20,6 +32,8 @@
       nixpkgs,
       home-manager,
       nixvim,
+      llm-agents,
+      zen-browser,
       ...
     }:
     let
@@ -43,7 +57,7 @@
       # User config in /home-manager
       homeConfigurations.jan = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit nixvim; };
+        extraSpecialArgs = { inherit nixvim llm-agents zen-browser; };
         modules = [ ./home-manager/home.nix ];
       };
     };

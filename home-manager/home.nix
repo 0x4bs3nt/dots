@@ -2,11 +2,14 @@
   config,
   pkgs,
   nixvim,
+  llm-agents,
+  zen-browser,
   ...
 }:
 {
   imports = [
     nixvim.homeModules.nixvim
+    zen-browser.homeModules.twilight
     ./fish.nix
     ./modules/bundle.nix
   ];
@@ -20,6 +23,16 @@
     username = "jan";
     homeDirectory = "/home/jan";
     stateVersion = "25.11";
+  };
+
+  programs.opencode = {
+    enable = true;
+    package = llm-agents.packages.${pkgs.system}.opencode;
+  };
+
+  programs.zen-browser = {
+    enable = true;
+    suppressXdgMigrationWarning = true;
   };
 
   home.file.".local/share/fonts" = {
