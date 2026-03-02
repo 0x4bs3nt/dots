@@ -17,6 +17,7 @@
     shellAbbrs = {
       ll = "eza -lag";
       lg = "lazygit";
+      oc = "opencode";
 
       # Rebuilding aliases
       nr = "nixfmt ~/nix/**/*.nix; sudo nixos-rebuild switch --flake ~/nix#nixos";
