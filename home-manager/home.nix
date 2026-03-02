@@ -30,6 +30,11 @@
     package = llm-agents.packages.${pkgs.system}.opencode;
   };
 
+  home.file.".config/opencode" = {
+    source = ../opencode;
+    recursive = true;
+  };
+
   programs.zen-browser = {
     enable = true;
     suppressXdgMigrationWarning = true;
