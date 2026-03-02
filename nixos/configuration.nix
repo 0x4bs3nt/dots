@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/bundle.nix
+    ./modules/ollama.nix
   ];
 
   # Nix Settings & Maintenance
