@@ -11,7 +11,6 @@
   ];
 
   home.packages = with pkgs; [
-    brave
     obsidian
     discord
     slack

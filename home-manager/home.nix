@@ -2,7 +2,6 @@
   config,
   pkgs,
   nixvim,
-  llm-agents,
   zen-browser,
   ...
 }:
@@ -23,16 +22,6 @@
     username = "jan";
     homeDirectory = "/home/jan";
     stateVersion = "25.11";
-  };
-
-  programs.opencode = {
-    enable = true;
-    package = llm-agents.packages.${pkgs.system}.opencode;
-  };
-
-  home.file.".config/opencode" = {
-    source = ../opencode;
-    recursive = true;
   };
 
   programs.zen-browser = {
