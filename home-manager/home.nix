@@ -26,7 +26,6 @@
 
   programs.zen-browser = {
     enable = true;
-    suppressXdgMigrationWarning = true;
   };
 
   home.file.".local/share/fonts" = {

@@ -40,9 +40,10 @@
       # System config in /nixos
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit pkgs; };
         modules = [
-          { nixpkgs.pkgs = pkgs; }
+          {
+            nixpkgs.config.allowUnfree = true;
+          }
           ./nixos/configuration.nix
         ];
       };
