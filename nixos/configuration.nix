@@ -57,6 +57,7 @@
 
   # System-level packages
   environment.systemPackages = with pkgs; [
+    brave
     vim
     lsof
     wget
