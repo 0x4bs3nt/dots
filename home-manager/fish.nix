@@ -19,13 +19,13 @@
       lg = "lazygit";
 
       # Rebuilding aliases
-      nr = "nixfmt ~/nix/**/*.nix; sudo nixos-rebuild switch --flake ~/nix#nixos";
+      nr = "nixfmt ~/nix/**/*.nix; nixos-rebuild switch --use-remote-sudo --impure --flake ~/nix#nixos";
       hms = "nixfmt ~/nix/**/*.nix; home-manager switch --flake ~/nix#jan";
-      rebuild = "nixfmt ~/nix/**/*.nix; sudo nixos-rebuild switch --flake ~/nix#nixos && home-manager switch --flake ~/nix#jan";
+      rebuild = "nixfmt ~/nix/**/*.nix; nixos-rebuild switch --use-remote-sudo --impure --flake ~/nix#nixos && home-manager switch --flake ~/nix#jan";
 
       # Nix utilities
       clean = "nix-collect-garbage -d";
-      update = "nix flake update && nixfmt ~/nix/**/*.nix";
+      update = "nix flake update --impure && nixfmt ~/nix/**/*.nix";
     };
   };
 }
