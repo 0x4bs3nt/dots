@@ -33,6 +33,11 @@
       };
 
       nixd.enable = true;
+
+      prismals = {
+        enable = true;
+        package = null; # installed externally via npm
+      };
     };
   };
 }

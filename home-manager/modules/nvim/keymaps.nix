@@ -115,6 +115,107 @@
         action = "<cmd>MarkdownPreviewToggle<CR>";
         options.desc = "[M]arkdown [P]review toggle";
       }
+
+      # ── Bufferline ──────────────────────────────────────────
+      {
+        mode = "n";
+        key = "<S-h>";
+        action = "<cmd>BufferLineCyclePrev<CR>";
+        options.desc = "Prev Buffer";
+      }
+      {
+        mode = "n";
+        key = "<S-l>";
+        action = "<cmd>BufferLineCycleNext<CR>";
+        options.desc = "Next Buffer";
+      }
+      {
+        mode = "n";
+        key = "<leader>bp";
+        action = "<cmd>BufferLineTogglePin<CR>";
+        options.desc = "Pin Buffer";
+      }
+      {
+        mode = "n";
+        key = "<leader>bx";
+        action = "<cmd>BufferLineGroupClose ungrouped<CR>";
+        options.desc = "Close Non-Pinned Buffers";
+      }
+
+      # ── Trouble ─────────────────────────────────────────────
+      {
+        mode = "n";
+        key = "<leader>xx";
+        action = "<cmd>Trouble diagnostics toggle<CR>";
+        options.desc = "Diagnostics (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xX";
+        action = "<cmd>Trouble diagnostics toggle filter.buf=0<CR>";
+        options.desc = "Buffer Diagnostics (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xs";
+        action = "<cmd>Trouble symbols toggle focus=false win.size=0.4<CR>";
+        options.desc = "Symbols (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xl";
+        action = "<cmd>Trouble loclist toggle<CR>";
+        options.desc = "Location List (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xq";
+        action = "<cmd>Trouble qflist toggle<CR>";
+        options.desc = "Quickfix List (Trouble)";
+      }
+      {
+        mode = "n";
+        key = "<leader>xt";
+        action = "<cmd>TodoTrouble<CR>";
+        options.desc = "Todos (Trouble)";
+      }
+
+      # ── Flash ───────────────────────────────────────────────
+      {
+        mode = [
+          "n"
+          "x"
+          "o"
+        ];
+        key = "s";
+        action.__raw = "function() require('flash').jump() end";
+        options.desc = "Flash";
+      }
+      {
+        mode = [
+          "n"
+          "x"
+          "o"
+        ];
+        key = "S";
+        action.__raw = "function() require('flash').treesitter() end";
+        options.desc = "Flash Treesitter";
+      }
+      {
+        mode = "o";
+        key = "r";
+        action.__raw = "function() require('flash').remote() end";
+        options.desc = "Remote Flash";
+      }
+      {
+        mode = [
+          "o"
+          "x"
+        ];
+        key = "R";
+        action.__raw = "function() require('flash').treesitter_search() end";
+        options.desc = "Treesitter Search";
+      }
     ];
 
     # ── Complex Lua Keymaps & Autocommands ───────────────────

@@ -17,6 +17,10 @@
       mapleader = " ";
       maplocalleader = " ";
       have_nerd_font = true;
+      loaded_perl_provider = 0;
+      loaded_ruby_provider = 0;
+      loaded_python3_provider = 0;
+      loaded_node_provider = 0;
     };
 
     # ── Options ──────────────────────────────────────────────
@@ -40,6 +44,13 @@
       scrolloff = 15;
       guicursor = "n-v-c:block-Cursor/lCursor-blinkon0";
       clipboard = "unnamedplus";
+      termguicolors = true;
+      pumblend = 10;
+      winblend = 10;
+      foldmethod = "expr";
+      foldexpr = "nvim_treesitter#foldexpr()";
+      foldlevel = 99;
+      foldlevelstart = 99;
     };
 
     # ── Autocommands ─────────────────────────────────────────
@@ -64,34 +75,47 @@
       }
     ];
 
-    # ── Lualine bubbles theme (oxocarbon colors) ─────────────
+    # ── Nordic theme + IBL scope hook (runs before plugin setups) ──
     extraConfigLuaPre = ''
-      local colors = {
-        blue = "#33b1ff",
-        cyan = "#3ddbd9",
-        black = "#161616",
-        white = "#f2f4f8",
-        red = "#ee5396",
-        violet = "#be95ff",
-        grey = "#393939",
-        pink = "#ff7eb6",
+      -- Fillchars (box-drawing characters for window borders)
+      vim.opt.fillchars = {
+        eob = " ",
+        vert = "│",
+        horiz = "─",
+        horizup = "┴",
+        horizdown = "┬",
+        vertleft = "┤",
+        vertright = "├",
+        verthoriz = "┼",
       }
 
-      bubbles_theme = {
-        normal = {
-          a = { fg = colors.black, bg = colors.violet },
-          b = { fg = colors.white, bg = colors.grey },
-          c = { fg = colors.white },
+      -- Nordic colorscheme setup
+      require('nordic').setup({
+        bold_keywords = true,
+        italic_comments = true,
+        transparent = { bg = false },
+        bright_half = true,
+        reduced_blue = true,
+        cursorline = {
+          bold = false,
+          bold_number = true,
+          theme = "dark",
+          blend = 0.85,
         },
-        insert = { a = { fg = colors.black, bg = colors.blue } },
-        visual = { a = { fg = colors.black, bg = colors.pink } },
-        replace = { a = { fg = colors.black, bg = colors.red } },
-        inactive = {
-          a = { fg = colors.white, bg = colors.black },
-          b = { fg = colors.white, bg = colors.black },
-          c = { fg = colors.white },
-        },
-      }
+        noice = { style = "flat" },
+        telescope = { style = "flat" },
+        on_highlight = function(highlights, palette)
+          highlights.WinSeparator = { fg = palette.gray2, bg = "NONE" }
+          highlights.FloatBorder = { fg = palette.gray3, bg = "NONE" }
+          highlights.NormalFloat = { bg = palette.gray0 }
+        end,
+      })
+
+      -- IBL scope highlight (must be set before ibl.setup)
+      local hooks = require("ibl.hooks")
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "IblScope", { fg = "#81A1C1" })
+      end)
     '';
 
     # ── Extra packages (formatters, linters, tools) ──────────

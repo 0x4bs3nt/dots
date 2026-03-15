@@ -10,12 +10,95 @@
           appearance = {
             use_nvim_cmp_as_default = true;
             nerd_font_variant = "mono";
+            kind_icons = {
+              Text = "󰉿";
+              Method = "󰊕";
+              Function = "󰊕";
+              Constructor = "󰒓";
+              Field = "󰜢";
+              Variable = "󰂡";
+              Property = "󰖷";
+              Class = "󰠱";
+              Interface = "";
+              Struct = "󰙅";
+              Module = "";
+              Unit = "󰑭";
+              Value = "󰎠";
+              Enum = "";
+              EnumMember = "";
+              Keyword = "󰌋";
+              Constant = "󰏿";
+              Snippet = "";
+              Color = "󰏘";
+              File = "󰈙";
+              Reference = "";
+              Folder = "󰉋";
+              Event = "";
+              Operator = "󰆕";
+              TypeParameter = "󰗴";
+            };
           };
-          completion.documentation = {
-            auto_show = true;
-            auto_show_delay_ms = 10;
+          completion = {
+            ghost_text = {
+              enabled = true;
+            };
+            menu = {
+              border = "rounded";
+              draw = {
+                treesitter = [ "lsp" ];
+                padding = 1;
+                columns = {
+                  __raw = ''
+                    {
+                      { "item_idx" },
+                      { "kind_icon", "label", gap = 1 },
+                    }
+                  '';
+                };
+                components = {
+                  item_idx = {
+                    text = {
+                      __raw = ''
+                        function(ctx)
+                          return tostring(ctx.idx)
+                        end
+                      '';
+                    };
+                    highlight = "BlinkCmpItemIdx";
+                  };
+                  kind_icon = {
+                    text = {
+                      __raw = ''
+                        function(ctx)
+                          return ctx.kind_icon .. ctx.icon_gap
+                        end
+                      '';
+                    };
+                    highlight = {
+                      __raw = ''
+                        function(ctx)
+                          return "BlinkCmpKind" .. ctx.kind
+                        end
+                      '';
+                    };
+                  };
+                };
+              };
+            };
+            documentation = {
+              auto_show = true;
+              auto_show_delay_ms = 200;
+              window = {
+                border = "rounded";
+              };
+            };
           };
-          signature.enabled = true;
+          signature = {
+            enabled = true;
+            window = {
+              border = "rounded";
+            };
+          };
           fuzzy.implementation = "prefer_rust_with_warning";
         };
       };
@@ -50,6 +133,9 @@
             sh = [ "shfmt" ];
             zsh = [ "shfmt" ];
             nix = [ "nixpkgs-fmt" ];
+            prisma = {
+              __raw = "{ lsp_format = 'prefer' }";
+            };
           };
         };
       };
@@ -124,9 +210,36 @@
           fzf-native.enable = true;
           ui-select.enable = true;
         };
-        settings.extensions = {
-          ui-select = {
-            __raw = "{ require('telescope.themes').get_dropdown() }";
+        settings = {
+          defaults = {
+            prompt_prefix = "   ";
+            selection_caret = "  ";
+            entry_prefix = "  ";
+            sorting_strategy = "ascending";
+            layout_strategy = "horizontal";
+            layout_config = {
+              horizontal = {
+                prompt_position = "top";
+                preview_width = 0.55;
+              };
+              width = 0.87;
+              height = 0.80;
+            };
+            borderchars = [
+              "─"
+              "│"
+              "─"
+              "│"
+              "╭"
+              "╮"
+              "╯"
+              "╰"
+            ];
+          };
+          extensions = {
+            ui-select = {
+              __raw = "{ require('telescope.themes').get_dropdown() }";
+            };
           };
         };
       };
@@ -138,13 +251,24 @@
           ensure_installed = [
             "bash"
             "c"
+            "css"
             "diff"
+            "fish"
+            "go"
             "html"
+            "javascript"
+            "json"
             "lua"
             "luadoc"
             "markdown"
             "markdown_inline"
+            "prisma"
+            "python"
             "query"
+            "regex"
+            "rust"
+            "tsx"
+            "typescript"
             "vim"
             "vimdoc"
           ];
@@ -162,72 +286,150 @@
       # ── File Explorer ─────────────────────────────────────────
       neo-tree = {
         enable = true;
-        settings.filesystem.window.mappings = {
-          "\\" = "close_window";
+        settings = {
+          default_component_configs = {
+            indent = {
+              with_expanders = true;
+              expander_collapsed = "";
+              expander_expanded = "";
+              expander_highlight = "NeoTreeExpander";
+            };
+            icon = {
+              folder_closed = "󰉋";
+              folder_open = "󰝰";
+              folder_empty = "󰉖";
+            };
+            modified = {
+              symbol = "●";
+            };
+            git_status = {
+              symbols = {
+                added = "";
+                modified = "";
+                deleted = "✖";
+                renamed = "󰁕";
+                untracked = "";
+                ignored = "";
+                unstaged = "󰄱";
+                staged = "";
+                conflict = "";
+              };
+            };
+          };
+          filesystem = {
+            window = {
+              mappings = {
+                "\\" = "close_window";
+              };
+              width = 35;
+            };
+            filtered_items = {
+              visible = false;
+              hide_dotfiles = true;
+              hide_gitignored = true;
+            };
+            follow_current_file = {
+              enabled = true;
+            };
+            use_libuv_file_watcher = true;
+          };
         };
       };
 
-      # ── Statusline ────────────────────────────────────────────
+      # ── Statusline ──────────────────────────────────────────
       lualine = {
         enable = true;
         settings = {
           options = {
-            theme = {
-              __raw = "bubbles_theme";
+            theme = "nordic";
+            component_separators = {
+              left = "│";
+              right = "│";
             };
-            component_separators = "";
             section_separators = {
               left = "";
               right = "";
+            };
+            globalstatus = true;
+            disabled_filetypes = {
+              statusline = [ "dashboard" ];
             };
           };
           sections = {
             lualine_a = [
               {
                 __unkeyed-1 = "mode";
-                separator = {
-                  left = "";
+                fmt = {
+                  __raw = ''
+                    function(str)
+                      return str:sub(1, 3)
+                    end
+                  '';
                 };
-                right_padding = 2;
               }
             ];
             lualine_b = [
-              "filename"
-              "branch"
-            ];
-            lualine_c = [ "%=" ];
-            lualine_x = [ ];
-            lualine_y = [
-              "filetype"
-              "progress"
-            ];
-            lualine_z = [
               {
-                __unkeyed-1 = "location";
-                separator = {
-                  right = "";
+                __unkeyed-1 = "branch";
+                icon = "";
+              }
+              {
+                __unkeyed-1 = "diff";
+                symbols = {
+                  added = " ";
+                  modified = " ";
+                  removed = " ";
                 };
-                left_padding = 2;
               }
             ];
+            lualine_c = [
+              {
+                __unkeyed-1 = "filetype";
+                icon_only = true;
+                separator = "";
+                padding = {
+                  left = 1;
+                  right = 0;
+                };
+              }
+              {
+                __unkeyed-1 = "filename";
+                path = 1;
+                symbols = {
+                  modified = " ●";
+                  readonly = " ";
+                  unnamed = " ";
+                };
+              }
+            ];
+            lualine_x = [
+              {
+                __unkeyed-1 = "diagnostics";
+                symbols = {
+                  error = " ";
+                  warn = " ";
+                  info = " ";
+                  hint = "󰌵 ";
+                };
+              }
+            ];
+            lualine_y = [ "filetype" ];
+            lualine_z = [
+              "location"
+              "progress"
+            ];
           };
-          inactive_sections = {
-            lualine_a = [ "filename" ];
-            lualine_b = [ ];
-            lualine_c = [ ];
-            lualine_x = [ ];
-            lualine_y = [ ];
-            lualine_z = [ "location" ];
-          };
-          tabline = { };
-          extensions = [ ];
         };
       };
 
-      # ── UI & Navigation ───────────────────────────────────────
+      # ── Which Key ────────────────────────────────────────────
       which-key = {
         enable = true;
         settings.spec = [
+          {
+            __unkeyed-1 = "<leader>b";
+            group = "[B]uffer";
+          }
           {
             __unkeyed-1 = "<leader>c";
             group = "[C]ode";
@@ -235,6 +437,10 @@
           {
             __unkeyed-1 = "<leader>d";
             group = "[D]ocument";
+          }
+          {
+            __unkeyed-1 = "<leader>m";
+            group = "[M]arkdown";
           }
           {
             __unkeyed-1 = "<leader>r";
@@ -245,12 +451,16 @@
             group = "[S]earch";
           }
           {
+            __unkeyed-1 = "<leader>t";
+            group = "[T]oggle";
+          }
+          {
             __unkeyed-1 = "<leader>w";
             group = "[W]orkspace";
           }
           {
-            __unkeyed-1 = "<leader>t";
-            group = "[T]oggle";
+            __unkeyed-1 = "<leader>x";
+            group = "[X] Trouble";
           }
           {
             __unkeyed-1 = "<leader>h";
@@ -263,6 +473,241 @@
         ];
       };
 
+      # ── Noice (UI for messages, cmdline, popupmenu) ──────────
+      noice = {
+        enable = true;
+        settings = {
+          cmdline = {
+            enabled = true;
+            view = "cmdline_popup";
+            format = {
+              cmdline = {
+                pattern = "^:";
+                icon = "";
+                lang = "vim";
+              };
+              search_down = {
+                kind = "search";
+                pattern = "^/";
+                icon = " ";
+                lang = "regex";
+              };
+              search_up = {
+                kind = "search";
+                pattern = "^%?";
+                icon = " ";
+                lang = "regex";
+              };
+            };
+          };
+          messages = {
+            view = "notify";
+          };
+          lsp = {
+            override = {
+              "vim.lsp.util.convert_input_to_markdown_lines" = true;
+              "vim.lsp.util.stylize_markdown" = true;
+              "cmp.entry.get_documentation" = true;
+            };
+            hover = {
+              enabled = true;
+            };
+            signature = {
+              enabled = false;
+            };
+          };
+          presets = {
+            command_palette = true;
+            lsp_doc_border = true;
+          };
+          views = {
+            mini = {
+              win_options = {
+                winblend = 0;
+              };
+            };
+          };
+        };
+      };
+
+      # ── Notify ───────────────────────────────────────────────
+      notify = {
+        enable = true;
+        settings = {
+          stages = "fade";
+          timeout = 3000;
+          render = "wrapped-compact";
+          max_width = 50;
+        };
+      };
+
+      # ── Bufferline ──────────────────────────────────────────
+      bufferline = {
+        enable = true;
+        settings.options = {
+          mode = "buffers";
+          diagnostics = "nvim_lsp";
+          diagnostics_indicator = {
+            __raw = ''
+              function(count, level)
+                local icon = level:match("error") and " " or " "
+                return " " .. icon .. count
+              end
+            '';
+          };
+          offsets = [
+            {
+              filetype = "neo-tree";
+              text = "File Explorer";
+              highlight = "Directory";
+              separator = true;
+            }
+          ];
+          separator_style = "thin";
+          show_close_icon = false;
+          show_buffer_close_icons = false;
+          always_show_bufferline = false;
+        };
+      };
+
+      # ── Indent Blankline ─────────────────────────────────────
+      indent-blankline = {
+        enable = true;
+        settings = {
+          indent = {
+            char = "│";
+          };
+          scope = {
+            show_start = false;
+            show_end = false;
+            highlight = "IblScope";
+          };
+          exclude = {
+            filetypes = [
+              "dashboard"
+              "neo-tree"
+              "lazy"
+              "mason"
+              "notify"
+            ];
+          };
+        };
+      };
+
+      # ── Dashboard ───────────────────────────────────────────
+      dashboard = {
+        enable = true;
+        settings = {
+          theme = "doom";
+          config = {
+            header = [
+              ""
+              "                                                                       "
+              "       ████ ██████           █████      ██                     "
+              "      ███████████             █████                             "
+              "      █████████ ███████████████████ ███   ███████████   "
+              "     █████████  ███    █████████████ █████ ██████████████   "
+              "    █████████ ██████████ █████████ █████ █████ ████ █████   "
+              "  ███████████ ███    ███ █████████ █████ █████ ████ █████  "
+              " ██████  █████████████████████ ████ █████ █████ ████ ██████ "
+              "                                                                       "
+              ""
+            ];
+            center = [
+              {
+                action = "Telescope find_files";
+                desc = " Find File           ";
+                icon = " ";
+                key = "f";
+              }
+              {
+                action = "ene | startinsert";
+                desc = " New File             ";
+                icon = " ";
+                key = "n";
+              }
+              {
+                action = "Telescope oldfiles";
+                desc = " Recent Files         ";
+                icon = " ";
+                key = "r";
+              }
+              {
+                action = "Telescope live_grep";
+                desc = " Find Text            ";
+                icon = " ";
+                key = "g";
+              }
+              {
+                action = "edit ~/nix/home-manager/modules/nvim/";
+                desc = " Config               ";
+                icon = " ";
+                key = "c";
+              }
+              {
+                action = "qa";
+                desc = " Quit                 ";
+                icon = " ";
+                key = "q";
+              }
+            ];
+            footer = [
+              ""
+              "Neovim with NixVim"
+            ];
+          };
+        };
+      };
+
+      # ── Dressing (improved UI inputs/selects) ────────────────
+      dressing = {
+        enable = true;
+        settings = {
+          input = {
+            border = "rounded";
+            relative = "cursor";
+            prefer_width = 40;
+            win_options = {
+              winblend = 10;
+            };
+          };
+          select = {
+            backend = [ "telescope" ];
+          };
+        };
+      };
+
+      # ── Flash (motion) ──────────────────────────────────────
+      flash = {
+        enable = true;
+        settings = {
+          search = {
+            enabled = false;
+          };
+          char = {
+            jump_labels = true;
+          };
+        };
+      };
+
+      # ── Trouble (diagnostics panel) ─────────────────────────
+      trouble = {
+        enable = true;
+      };
+
+      # ── Smear Cursor ────────────────────────────────────────
+      smear-cursor = {
+        enable = true;
+        settings = {
+          stiffness = 0.8;
+          trailing_stiffness = 0.5;
+          distance_stop_animating = 0.5;
+          smear_between_buffers = true;
+          smear_between_neighbor_lines = true;
+        };
+      };
+
+      # ── Misc ─────────────────────────────────────────────────
       web-devicons.enable = true;
       fidget.enable = true;
       todo-comments = {
@@ -302,23 +747,36 @@
       };
     };
 
-    # ── Extra Plugins (no first-class Nixvim module) ─────────
-    extraPlugins = with pkgs.vimPlugins; [
-      auto-save-nvim
-      cord-nvim
-      claude-code-nvim
-      catppuccin-nvim
-    ];
+    # ── Extra Plugins (no first-class NixVim module) ─────────
+    extraPlugins =
+      (with pkgs.vimPlugins; [
+        auto-save-nvim
+        cord-nvim
+        claude-code-nvim
+      ])
+      ++ [
+        # AlexvZyl/nordic.nvim (nixpkgs has the wrong fork)
+        (pkgs.vimUtils.buildVimPlugin {
+          pname = "nordic-nvim";
+          version = "2025-03-15";
+          src = pkgs.fetchFromGitHub {
+            owner = "AlexvZyl";
+            repo = "nordic.nvim";
+            rev = "4ce6bad95fde832f9bd10b991de846047a144628";
+            hash = "sha256-kjr4SsRbKfVgNjAFWybkRQ8/QDOPLm7lbysi6Gblpfg=";
+          };
+        })
+      ];
 
-    colorscheme = "catppuccin";
+    colorscheme = "nordic";
 
     extraConfigLua = ''
       -- AutoSave
-      require('auto-save').setup({ enabled = true })
+      require('auto-save').setup({
+        enabled = true,
+        execution_message = { message = "" },
+      })
       vim.keymap.set('n', '<leader>ts', ':ASToggle<CR>', { noremap = true, silent = true, desc = 'Toggle Auto Save' })
-
-      -- Catppuccin (frappe = lightest dark variant)
-      require('catppuccin').setup({ flavour = 'frappe' })
 
       -- Discord Rich Presence
       require('cord').setup({})
