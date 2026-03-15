@@ -20,5 +20,6 @@
     bat
     tree
     nixfmt-rfc-style
+    gh
   ];
 }

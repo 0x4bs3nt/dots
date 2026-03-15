@@ -111,11 +111,62 @@
         end,
       })
 
+      -- Catppuccin colorscheme setup (light mode)
+      require('catppuccin').setup({
+        flavour = 'latte',
+        background = { light = 'latte' },
+        integrations = {
+          dashboard = true,
+          flash = true,
+          fidget = true,
+          gitsigns = true,
+          indent_blankline = { enabled = true },
+          mason = true,
+          mini = { enabled = true },
+          native_lsp = { enabled = true },
+          neotree = true,
+          noice = true,
+          notify = true,
+          telescope = { enabled = true },
+          treesitter = true,
+          trouble = true,
+          which_key = true,
+        },
+      })
+
+      -- Synchronously detect system theme and apply colorscheme before plugins load
+      local handle = io.popen(
+        'dbus-send --session --print-reply=literal --reply-timeout=1000 '
+        .. '--dest=org.freedesktop.portal.Desktop '
+        .. '/org/freedesktop/portal/desktop '
+        .. 'org.freedesktop.portal.Settings.Read '
+        .. 'string:org.freedesktop.appearance string:color-scheme 2>/dev/null'
+      )
+      local result = handle and handle:read('*a') or ""
+      if handle then handle:close() end
+
+      if result:match("uint32 1") then
+        vim.o.background = 'dark'
+        vim.cmd.colorscheme('nordic')
+      else
+        vim.o.background = 'light'
+        vim.cmd.colorscheme('catppuccin-latte')
+      end
+
       -- IBL scope highlight (must be set before ibl.setup)
       local hooks = require("ibl.hooks")
       hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-        vim.api.nvim_set_hl(0, "IblScope", { fg = "#81A1C1" })
+        local color = vim.o.background == "light" and "#7287A0" or "#81A1C1"
+        vim.api.nvim_set_hl(0, "IblScope", { fg = color })
       end)
+
+      -- Re-apply IBL scope color on colorscheme change
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          local color = vim.o.background == "light" and "#7287A0" or "#81A1C1"
+          vim.api.nvim_set_hl(0, "IblScope", { fg = color })
+        end,
+      })
     '';
 
     # ── Extra packages (formatters, linters, tools) ──────────

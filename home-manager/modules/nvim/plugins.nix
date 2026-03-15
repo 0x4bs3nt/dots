@@ -341,7 +341,7 @@
         enable = true;
         settings = {
           options = {
-            theme = "nordic";
+            theme = "auto";
             component_separators = {
               left = "│";
               right = "│";
@@ -753,6 +753,7 @@
         auto-save-nvim
         cord-nvim
         claude-code-nvim
+        catppuccin-nvim
       ])
       ++ [
         # AlexvZyl/nordic.nvim (nixpkgs has the wrong fork)
@@ -766,9 +767,18 @@
             hash = "sha256-kjr4SsRbKfVgNjAFWybkRQ8/QDOPLm7lbysi6Gblpfg=";
           };
         })
+        # f-person/auto-dark-mode.nvim (auto light/dark theme switching)
+        (pkgs.vimUtils.buildVimPlugin {
+          pname = "auto-dark-mode-nvim";
+          version = "2026-03-15";
+          src = pkgs.fetchFromGitHub {
+            owner = "f-person";
+            repo = "auto-dark-mode.nvim";
+            rev = "e300259ec777a40b4b9e3c8e6ade203e78d15881";
+            hash = "sha256-PhhOlq4byctWJ5rLe3cifImH56vR2+k3BZGDZdQvjng=";
+          };
+        })
       ];
-
-    colorscheme = "nordic";
 
     extraConfigLua = ''
       -- AutoSave
@@ -780,6 +790,19 @@
 
       -- Discord Rich Presence
       require('cord').setup({})
+
+      -- Auto Dark Mode (system theme detection)
+      require('auto-dark-mode').setup({
+        update_interval = 1000,
+        set_dark_mode = function()
+          vim.o.background = 'dark'
+          vim.cmd.colorscheme('nordic')
+        end,
+        set_light_mode = function()
+          vim.o.background = 'light'
+          vim.cmd.colorscheme('catppuccin-latte')
+        end,
+      })
 
       -- Claude Code
       require('claude-code').setup({

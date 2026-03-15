@@ -15,7 +15,7 @@
     '';
 
     shellAbbrs = {
-      ll = "eza -lag";
+      ll = "eza --long --all --group --group-directories-first --icons=auto --header --colour-scale=size --time-style=relative";
       lg = "lazygit";
 
       # Rebuilding aliases

@@ -6,10 +6,13 @@
     settings = {
       command = "${pkgs.fish}/bin/fish";
 
+      # Theme (auto light/dark)
+      theme = "dark:Gruvbox Material Dark,light:Havn Daggry";
+
       # Font & Spacing
       font-family = "TX-02";
       font-size = 11;
-      adjust-cell-height = "35%";
+      adjust-cell-height = "45%";
 
       # Cursor
       cursor-style = "block";

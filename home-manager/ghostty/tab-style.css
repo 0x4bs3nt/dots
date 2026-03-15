@@ -4,23 +4,47 @@ tabbar tabbox {
   margin-right: -6px;
   padding: 2px;
   min-height: 32px;
-  background-color: #1a1a1a;
   font-family: monospace;
 }
 
 tabbar tabbox tab {
   margin: 0;
   padding: 0;
-  color: #9ca3af;
-  border-right: 1px solid #374151;
   border-radius: 0;
-}
-
-tabbar tabbox tab:selected {
-  background-color: #2d2d2d;
-  color: #ffffff;
 }
 
 tabbar tabbox tab label {
   font-size: 13px;
+}
+
+@media (prefers-color-scheme: dark) {
+  tabbar tabbox {
+    background-color: #1a1a1a;
+  }
+
+  tabbar tabbox tab {
+    color: #9ca3af;
+    border-right: 1px solid #374151;
+  }
+
+  tabbar tabbox tab:selected {
+    background-color: #2d2d2d;
+    color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  tabbar tabbox {
+    background-color: #e8e8e8;
+  }
+
+  tabbar tabbox tab {
+    color: #6b7280;
+    border-right: 1px solid #d1d5db;
+  }
+
+  tabbar tabbox tab:selected {
+    background-color: #f5f5f5;
+    color: #1f2937;
+  }
 }
