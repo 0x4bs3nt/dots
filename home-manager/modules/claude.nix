@@ -13,9 +13,10 @@ in
     CLAUDE_CODE_SKIP_NPM_CHECK = "1";
   };
 
-  home.sessionPath = [
-    "${npmPrefix}/bin"
-  ];
+  # Add npm global bin to PATH via fish directly
+  programs.fish.shellInit = ''
+    fish_add_path "${npmPrefix}/bin"
+  '';
 
   # Install latest claude-code from npm on every home-manager switch
   home.activation.installClaudeCode = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
