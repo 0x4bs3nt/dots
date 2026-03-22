@@ -19,7 +19,10 @@ let
     echo ""
 
     echo "[1/2] Opening SSO login window..."
-    export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu"
+    export QTWEBENGINE_DISABLE_SANDBOX=1
+    export QTWEBENGINE_CHROMIUM_FLAGS="--disable-gpu --disable-software-rasterizer --in-process-gpu"
+    export QT_OPENGL=software
+    export LIBGL_ALWAYS_SOFTWARE=1
     export FONTCONFIG_FILE=${pkgs.fontconfig.out}/etc/fonts/fonts.conf
     SVPNCOOKIE=$(${pkgs.openfortivpn-webview-qt}/bin/openfortivpn-webview \
       --trusted-cert="${trustedCertB64}" \
