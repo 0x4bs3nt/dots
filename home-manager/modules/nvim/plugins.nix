@@ -716,7 +716,6 @@
       };
       sleuth.enable = true;
       lazygit.enable = true;
-      copilot-vim.enable = true;
 
       lazydev = {
         enable = true;
