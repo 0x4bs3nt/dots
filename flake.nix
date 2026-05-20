@@ -48,7 +48,7 @@
       };
 
       # User config in /home-manager
-      homeConfigurations.jan = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.absent = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit nixvim zen-browser; };
         modules = [ ./home-manager/home.nix ];

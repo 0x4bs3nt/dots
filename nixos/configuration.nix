@@ -27,7 +27,7 @@
   # Automatic System Upgrades
   system.autoUpgrade = {
     enable = true;
-    flake = "/home/jan/nix";
+    flake = "/home/absent/nix";
     flags = [
       "--update-input"
       "nixpkgs"

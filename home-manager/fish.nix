@@ -20,8 +20,8 @@
 
       # Rebuilding aliases
       nr = "nixfmt ~/nix/**/*.nix; nixos-rebuild switch --sudo --impure --flake ~/nix#nixos";
-      hms = "nixfmt ~/nix/**/*.nix; home-manager switch --flake ~/nix#jan";
-      rebuild = "nixfmt ~/nix/**/*.nix; nixos-rebuild switch --sudo --impure --flake ~/nix#nixos && home-manager switch --flake ~/nix#jan";
+      hms = "nixfmt ~/nix/**/*.nix; home-manager switch --flake ~/nix#absent";
+      rebuild = "nixfmt ~/nix/**/*.nix; nixos-rebuild switch --sudo --impure --flake ~/nix#nixos && home-manager switch --flake ~/nix#absent";
 
       # Nix utilities
       clean = "nix-collect-garbage -d";

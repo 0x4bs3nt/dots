@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  secrets = import /home/jan/nix/nixos/modules/fortivpn-secrets.nix;
+  secrets = import /home/absent/nix/nixos/modules/fortivpn-secrets.nix;
 
   vpnName = "Nexe";
   gateway = secrets.gateway;

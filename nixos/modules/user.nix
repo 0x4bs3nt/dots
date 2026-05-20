@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  users.users.jan = {
+  users.users.absent = {
     isNormalUser = true;
-    description = "jan";
+    description = "absent";
     extraGroups = [
       "networkmanager"
       "wheel"

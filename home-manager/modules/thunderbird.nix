@@ -2,7 +2,7 @@
 {
   programs.thunderbird = {
     enable = true;
-    profiles.jan = {
+    profiles.absent = {
       isDefault = true;
     };
   };
