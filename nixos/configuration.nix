@@ -67,6 +67,7 @@
   ];
 
   services.openssh.enable = true;
+  programs.nix-ld.enable = true;
 
   # direnv with nix-direnv for automatic dev environments
   programs.direnv = {
