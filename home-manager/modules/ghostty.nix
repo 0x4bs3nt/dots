@@ -6,8 +6,8 @@
     settings = {
       command = "${pkgs.fish}/bin/fish";
 
-      # Theme (auto light/dark)
-      theme = "dark:Gruvbox Material Dark,light:Havn Daggry";
+      # Theme
+      theme = "Gruvbox Material Dark";
 
       # Font & Spacing
       font-family = "TX-02";
