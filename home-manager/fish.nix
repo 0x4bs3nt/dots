@@ -21,12 +21,12 @@
       set -gx tide_right_prompt_frame_enabled false
       set -gx tide_left_prompt_prefix ""
       set -gx tide_left_prompt_suffix ""
-      set -gx tide_left_prompt_separator_diff_color ""
-      set -gx tide_left_prompt_separator_same_color ""
+      set -gx tide_left_prompt_separator_diff_color "╱"
+      set -gx tide_left_prompt_separator_same_color "╱"
       set -gx tide_right_prompt_prefix ""
       set -gx tide_right_prompt_suffix ""
-      set -gx tide_right_prompt_separator_diff_color ""
-      set -gx tide_right_prompt_separator_same_color ""
+      set -gx tide_right_prompt_separator_diff_color "╱"
+      set -gx tide_right_prompt_separator_same_color "╱"
       set -gx tide_prompt_add_newline_before false
       set -gx tide_prompt_color_frame_and_connection 6C6C6C
       set -gx tide_prompt_color_separator_same_color 949494
