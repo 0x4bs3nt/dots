@@ -1,2 +1,4 @@
 result
+result-*
+.DS_Store
 nixos/modules/fortivpn-secrets.nix

@@ -6,11 +6,20 @@
     settings = {
       command = "${pkgs.fish}/bin/fish";
 
+      # General
+      auto-update-channel = "tip";
+      shell-integration = "fish";
+      shell-integration-features = "no-cursor,sudo,title,ssh-env,ssh-terminfo";
+
       # Theme
       theme = "Gruvbox Material Dark";
 
       # Font & Spacing
-      font-family = "TX-02";
+      font-family = [
+        "TX-02"
+        "Symbols Nerd Font"
+      ];
+      font-feature = "-calt";
       font-size = 11;
       adjust-cell-height = "45%";
 

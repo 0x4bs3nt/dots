@@ -21,5 +21,6 @@
     tree
     nixfmt-rfc-style
     gh
+    nerd-fonts.symbols-only
   ];
 }
