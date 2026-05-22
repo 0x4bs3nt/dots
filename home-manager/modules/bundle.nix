@@ -14,6 +14,7 @@
     obsidian
     discord
     slack
+    spotify
     element-desktop
     eza
     lazygit

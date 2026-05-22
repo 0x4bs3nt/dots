@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, ghostty, ... }:
 {
   programs.ghostty = {
     enable = true;
+    package = ghostty.packages.${pkgs.system}.default;
 
     settings = {
       command = "${pkgs.fish}/bin/fish";

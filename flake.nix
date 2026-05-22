@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +31,7 @@
       home-manager,
       nixvim,
       zen-browser,
+      ghostty,
       ...
     }:
     let
@@ -50,7 +56,7 @@
       # User config in /home-manager
       homeConfigurations.absent = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit nixvim zen-browser; };
+        extraSpecialArgs = { inherit nixvim zen-browser ghostty; };
         modules = [ ./home-manager/home.nix ];
       };
     };

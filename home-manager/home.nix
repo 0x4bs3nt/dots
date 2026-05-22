@@ -3,6 +3,7 @@
   pkgs,
   nixvim,
   zen-browser,
+  ghostty,
   ...
 }:
 {
