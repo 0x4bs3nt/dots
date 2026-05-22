@@ -64,6 +64,7 @@
     dig
     git
     home-manager
+    wl-clipboard
   ];
 
   services.openssh.enable = true;
