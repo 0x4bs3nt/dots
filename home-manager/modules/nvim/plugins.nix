@@ -133,6 +133,9 @@
             sh = [ "shfmt" ];
             zsh = [ "shfmt" ];
             nix = [ "nixpkgs-fmt" ];
+            astro = {
+              __raw = "{ lsp_format = 'prefer' }";
+            };
             prisma = {
               __raw = "{ lsp_format = 'prefer' }";
             };
@@ -249,6 +252,7 @@
         enable = true;
         settings = {
           ensure_installed = [
+            "astro"
             "bash"
             "c"
             "css"
