@@ -13,6 +13,7 @@ in
     pkgs.nodejs
     pkgs.jq # Required for statusline script
     pkgs.curl # Required for statusline script
+    pkgs.sox # Required for Claude Code voice mode audio recording
   ];
 
   home.sessionVariables = {
