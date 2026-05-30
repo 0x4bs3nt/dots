@@ -24,6 +24,10 @@
     homeDirectory = "/home/absent";
     stateVersion = "25.11";
 
+    # python3 is required by the security-guidance Claude Code plugin's hooks
+    # (it shells out to a `python3` interpreter); NixOS ships none by default.
+    packages = [ pkgs.python3 ];
+
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "0";
       MOZ_DISABLE_RDD_SANDBOX = "1";
