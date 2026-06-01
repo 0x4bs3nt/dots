@@ -8,6 +8,7 @@
     ./claude.nix
     ./fastfetch.nix
     ./thunderbird.nix
+    ./openwhispr.nix
   ];
 
   home.packages = with pkgs; [
