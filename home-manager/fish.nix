@@ -187,6 +187,10 @@
       set -gx tide_vi_mode_color_visual FF8700
     '';
 
+    functions = {
+      whispr-local = "cd ~/DevProjects/openwhispr; and nix shell nixpkgs#nodejs_24 nixpkgs#gcc nixpkgs#pkg-config nixpkgs#libpulseaudio nixpkgs#alsa-lib nixpkgs#electron nixpkgs#pipewire.dev nixpkgs#glib.dev --command fish -C 'set -gx ELECTRON_OVERRIDE_DIST_PATH (path dirname (which electron))'";
+    };
+
     shellAbbrs = {
       ll = "eza --long --all --group --group-directories-first --icons=auto --header --colour-scale=size --time-style=relative";
       lg = "lazygit";
