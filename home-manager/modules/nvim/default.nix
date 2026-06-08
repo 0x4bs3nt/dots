@@ -10,6 +10,10 @@
     enable = true;
     defaultEditor = true;
 
+    withPython3 = false;
+    withRuby = false;
+    withNodeJs = false;
+
     nixpkgs.config.allowUnfree = true;
 
     # ── Globals ──────────────────────────────────────────────

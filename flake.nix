@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +29,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       nixvim,
       zen-browser,
@@ -37,6 +39,10 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      pkgs-unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
@@ -56,7 +62,14 @@
       # User config in /home-manager
       homeConfigurations.absent = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit nixvim zen-browser ghostty; };
+        extraSpecialArgs = {
+          inherit
+            nixvim
+            zen-browser
+            ghostty
+            pkgs-unstable
+            ;
+        };
         modules = [ ./home-manager/home.nix ];
       };
     };
