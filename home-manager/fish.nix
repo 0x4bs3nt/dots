@@ -188,7 +188,7 @@
     '';
 
     functions = {
-      whispr-local = "cd ~/DevProjects/openwhispr; and nix shell nixpkgs#nodejs_24 nixpkgs#gcc nixpkgs#pkg-config nixpkgs#libpulseaudio nixpkgs#alsa-lib nixpkgs#electron nixpkgs#pipewire.dev nixpkgs#glib.dev --command fish -C 'set -gx ELECTRON_OVERRIDE_DIST_PATH (path dirname (which electron))'";
+      whispr-local = "cd ~/DevProjects/openwhispr; and nix-shell -p nodejs_24 gcc gnumake python3 pkg-config electron glib pipewire at-spi2-core xorg.libX11 xorg.libXtst alsa-lib libpulseaudio --run \"fish -C 'set -gx ELECTRON_OVERRIDE_DIST_PATH (path dirname (which electron))'\"";
     };
 
     shellAbbrs = {

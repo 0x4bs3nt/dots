@@ -9,7 +9,6 @@
     ./fastfetch.nix
     ./thunderbird.nix
     ./openwhispr.nix
-    ./codex.nix
   ];
 
   home.packages = with pkgs; [
