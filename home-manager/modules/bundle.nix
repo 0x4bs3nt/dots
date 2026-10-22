@@ -7,7 +7,6 @@
     ./nvim
     ./fastfetch.nix
     ./thunderbird.nix
-    ./openwhispr.nix
   ];
 
   home.packages = with pkgs; [
