@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +33,7 @@
       nixvim,
       zen-browser,
       ghostty,
+      llm-agents,
       ...
     }:
     let
@@ -56,7 +58,14 @@
       # User config in /home-manager
       homeConfigurations.absent = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit nixvim zen-browser ghostty; };
+        extraSpecialArgs = {
+          inherit
+            nixvim
+            zen-browser
+            ghostty
+            llm-agents
+            ;
+        };
         modules = [ ./home-manager/home.nix ];
       };
     };

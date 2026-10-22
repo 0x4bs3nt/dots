@@ -755,7 +755,6 @@
       (with pkgs.vimPlugins; [
         auto-save-nvim
         cord-nvim
-        claude-code-nvim
         catppuccin-nvim
       ])
       ++ [
@@ -805,21 +804,6 @@
           vim.o.background = 'light'
           vim.cmd.colorscheme('catppuccin-latte')
         end,
-      })
-
-      -- Claude Code
-      require('claude-code').setup({
-        window = {
-          position = 'float',
-          float = {
-            width = '90%',
-            height = '90%',
-            row = 'center',
-            col = 'center',
-            relative = 'editor',
-            border = 'double',
-          },
-        },
       })
 
       -- Lint autocommand

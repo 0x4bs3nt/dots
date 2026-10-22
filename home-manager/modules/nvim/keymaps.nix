@@ -52,14 +52,6 @@
         options.desc = "Move focus to the upper window";
       }
 
-      # Claude Code
-      {
-        mode = "n";
-        key = "<C-,>";
-        action = "<cmd>ClaudeCode<CR>";
-        options.desc = "Claude Code";
-      }
-
       # Quickfix navigation
       {
         mode = "n";

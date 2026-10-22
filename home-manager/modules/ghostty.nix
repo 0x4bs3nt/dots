@@ -1,4 +1,9 @@
-{ pkgs, ghostty, ... }:
+{
+  config,
+  pkgs,
+  ghostty,
+  ...
+}:
 {
   programs.ghostty = {
     enable = true;
@@ -61,4 +66,11 @@
   };
 
   xdg.configFile."ghostty/tab-style.css".source = ../ghostty/tab-style.css;
+
+  # Desktop activation uses systemd, whose executable search path lacks Ghostty.
+  xdg.configFile."systemd/user/app-com.mitchellh.ghostty.service.d/override.conf".text = ''
+    [Service]
+    ExecStart=
+    ExecStart=${config.programs.ghostty.package}/bin/ghostty --gtk-single-instance=true --initial-window=false
+  '';
 }

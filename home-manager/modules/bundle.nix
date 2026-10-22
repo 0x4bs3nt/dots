@@ -5,7 +5,6 @@
     ./btop.nix
     ./ghostty.nix
     ./nvim
-    ./claude.nix
     ./fastfetch.nix
     ./thunderbird.nix
     ./openwhispr.nix

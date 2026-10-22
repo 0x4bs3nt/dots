@@ -4,6 +4,7 @@
   nixvim,
   zen-browser,
   ghostty,
+  llm-agents,
   ...
 }:
 {
@@ -24,9 +25,9 @@
     homeDirectory = "/home/absent";
     stateVersion = "25.11";
 
-    # python3 is required by the security-guidance Claude Code plugin's hooks
-    # (it shells out to a `python3` interpreter); NixOS ships none by default.
-    packages = [ pkgs.python3 ];
+    packages = [
+      llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
+    ];
 
     sessionVariables = {
       MOZ_ENABLE_WAYLAND = "0";
