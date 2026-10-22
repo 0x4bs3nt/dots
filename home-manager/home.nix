@@ -27,6 +27,7 @@
 
     packages = [
       llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
+      pkgs.bubblewrap
     ];
 
     sessionVariables = {
