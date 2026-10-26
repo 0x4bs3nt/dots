@@ -70,6 +70,10 @@
   services.openssh.enable = true;
   programs.nix-ld.enable = true;
 
+  # Manage persistent VMs from the desktop; guest autostart is opt-in.
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
   # direnv with nix-direnv for automatic dev environments
   programs.direnv = {
     enable = true;
