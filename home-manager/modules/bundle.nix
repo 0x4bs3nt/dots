@@ -11,6 +11,7 @@
 
   home.packages = with pkgs; [
     obsidian
+    obs-studio
     discord
     slack
     spotify
