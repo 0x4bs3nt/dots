@@ -6,7 +6,7 @@
     ./ghostty.nix
     ./nvim
     ./fastfetch.nix
-    ./thunderbird.nix
+    ./flectar-mail.nix
   ];
 
   home.packages = with pkgs; [

@@ -44,6 +44,8 @@
       };
     in
     {
+      packages.${system}.flectar-mail = pkgs.callPackage ./packages/flectar-mail.nix { };
+
       # System config in /nixos
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
